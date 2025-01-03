@@ -11,7 +11,7 @@
         <scene sceneID="Wbn-dq-Mga">
             <objects>
                 <tableViewController id="p7J-y0-Lpf" customClass="ShoppingTableViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="735-Wu-hOX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="735-Wu-hOX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -29,14 +29,20 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidEndOnExit:" destination="p7J-y0-Lpf" eventType="editingDidEndOnExit" id="gff-XU-4rE"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JT9-4K-n6i">
-                                            <rect key="frame" x="290" y="12" width="47.666666666666686" height="44"/>
+                                            <rect key="frame" x="290" y="12" width="55" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="JT9-4K-n6i" secondAttribute="height" multiplier="1.3:1.2" id="PIY-fB-TrD"/>
+                                                <constraint firstAttribute="width" secondItem="JT9-4K-n6i" secondAttribute="height" multiplier="1.5:1.2" id="PIY-fB-TrD"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="addShoppingList:" destination="p7J-y0-Lpf" eventType="touchUpInside" id="fZZ-3h-CI3"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -80,7 +86,7 @@
                                                 <constraint firstAttribute="width" constant="30" id="r2t-eh-lsi"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="checkmark.square" catalog="system"/>
+                                            <state key="normal" image="star" catalog="system"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYu-Sp-1ZL">
                                             <rect key="frame" x="70" y="23" width="228" height="24"/>
@@ -109,7 +115,7 @@
                                 <connections>
                                     <outlet property="checkButton" destination="bvI-sn-mVK" id="nyy-Dj-8Ex"/>
                                     <outlet property="likeButton" destination="cnG-DA-4yJ" id="l2b-Y4-PIH"/>
-                                    <outlet property="mainLable" destination="MYu-Sp-1ZL" id="yhe-iy-odi"/>
+                                    <outlet property="mainLabel" destination="MYu-Sp-1ZL" id="yhe-iy-odi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -150,6 +156,7 @@
     </scenes>
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

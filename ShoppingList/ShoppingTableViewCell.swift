@@ -13,7 +13,7 @@ class ShoppingTableViewCell: UITableViewCell {
     
     @IBOutlet var likeButton: UIButton!
     
-    @IBOutlet var mainLable: UILabel!
+    @IBOutlet var mainLabel: UILabel!
     
     
     
