@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rvE-I1-Wwb">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -10,8 +10,8 @@
         <!--쇼핑-->
         <scene sceneID="Wbn-dq-Mga">
             <objects>
-                <tableViewController id="p7J-y0-Lpf" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="735-Wu-hOX">
+                <tableViewController id="p7J-y0-Lpf" customClass="ShoppingTableViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="735-Wu-hOX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,11 +59,11 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="70" id="lT6-H1-8lG">
-                                <rect key="frame" x="0.0" y="150" width="393" height="70"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingTableViewController" rowHeight="70" id="lT6-H1-8lG" customClass="ShoppingTableViewCell" customModule="ShoppingList" customModuleProvider="target">
+                                <rect key="frame" x="20" y="155.33333206176758" width="353" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lT6-H1-8lG" id="1sL-NB-LwB">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="70"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvI-sn-mVK">
@@ -75,7 +75,7 @@
                                             <state key="normal" image="checkmark.square" catalog="system"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnG-DA-4yJ">
-                                            <rect key="frame" x="343" y="19" width="30" height="32"/>
+                                            <rect key="frame" x="303" y="19" width="30" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="r2t-eh-lsi"/>
                                             </constraints>
@@ -83,9 +83,9 @@
                                             <state key="normal" image="checkmark.square" catalog="system"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYu-Sp-1ZL">
-                                            <rect key="frame" x="70" y="23" width="240" height="24"/>
+                                            <rect key="frame" x="70" y="23" width="228" height="24"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="MYu-Sp-1ZL" secondAttribute="height" multiplier="10:1" id="qOo-pt-r7E"/>
+                                                <constraint firstAttribute="width" secondItem="MYu-Sp-1ZL" secondAttribute="height" multiplier="9.5:1" id="qOo-pt-r7E"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -106,6 +106,11 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="bvI-sn-mVK" secondAttribute="bottom" constant="8" id="zKk-mF-GGe"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkButton" destination="bvI-sn-mVK" id="nyy-Dj-8Ex"/>
+                                    <outlet property="likeButton" destination="cnG-DA-4yJ" id="l2b-Y4-PIH"/>
+                                    <outlet property="mainLable" destination="MYu-Sp-1ZL" id="yhe-iy-odi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -114,6 +119,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="쇼핑" id="ICo-fd-kM2"/>
+                    <connections>
+                        <outlet property="addButton" destination="JT9-4K-n6i" id="Vcm-AD-sfD"/>
+                        <outlet property="backgroundView" destination="OgQ-gL-Tta" id="s8V-mR-wMk"/>
+                        <outlet property="inputTextField" destination="1eq-ZR-sAT" id="GpH-cv-fbm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtr-SG-ZrY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
