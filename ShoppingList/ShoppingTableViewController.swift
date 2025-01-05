@@ -9,12 +9,8 @@ import UIKit
 
 class ShoppingTableViewController: UITableViewController {
     
-    var shopInfo = ShoppingInfoList()
-//    {
-//        didSet {
-//            tableView.reloadData()
-//        }
-//    }
+    var shopInfo = ShoppingInfoList().list
+
     
     @IBOutlet var inputTextField: UITextField!
     @IBOutlet var addButton: UIButton!
@@ -52,23 +48,9 @@ class ShoppingTableViewController: UITableViewController {
         
         let del = UIContextualAction(style: .normal, title: "삭제") { (_, _, complete: @escaping (Bool) -> Void) in
             
-   //         print(indexPath)
             //리스트를 먼저 지우고, 테이블 뷰를 지워야함.
-            self.shopInfo.list.remove(at: indexPath.row)
-            // 테이블 뷰는 데이터를 가지고 지우는거기 때문에, 먼저 테이블뷰를 지울 경우 list에는 아직 남아있는 상황
-            // 즉 tableView(_:cellForRowAt:)가 그릴 때 indexPath와 list간의 차이가 있음.
+            self.shopInfo.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-   
-//            deleteRows(at:with:) 사용:
-//            데이터를 **부분적으로 수정(삽입, 삭제, 이동)**할 때.
-//            애니메이션 효과를 적용해 부드러운 사용자 경험을 제공하고 싶을 때.
-//            reloadData() 사용:
-//            테이블의 데이터가 완전히 변경되거나 전체를 다시 그려야 할 때.
-//            간단한 UI 갱신이 필요하고 애니메이션이 중요하지 않을 때.
-          
-            // 어차피 둘다 아래 함수 호출 함
-           // tableView(_:numberOfRowsInSection:): 섹션당 남아 있는 행(Row)의 개수를 확인.
-           // tableView(_:cellForRowAt:): 변경된 데이터에 따라 필요한 새로운 셀을 요청.
 
             complete(true)
             
@@ -81,28 +63,10 @@ class ShoppingTableViewController: UITableViewController {
 
     }
     
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       
-        let test = UIContextualAction(style: .normal, title: "") { (_, _, complete: @escaping (Bool) -> Void) in
-//            let alert = UIAlertController(title: "알림", message: "좋아요가 눌려졌어요", preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "확인", style: .default)
-//            
-//            alert.addAction(ok)
-//            self.present(alert,animated: true)
-    
-            complete(false) // false나 true나 동작에 차이는 없음 단, complete 안써줄 경우 스와이프에 그대로 남아있음
-            // 내부적으로 어떻게 동작하는지는 잘 모르겠네.
-        }
-        test.image = UIImage(systemName: "hand.thumbsup")
-        
-        //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
-        return UISwipeActionsConfiguration(actions:[test])
-
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return shopInfo.list.count
+        return shopInfo.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,10 +75,10 @@ class ShoppingTableViewController: UITableViewController {
         
         let row = indexPath.row
         
-        cell.mainLabel.text = shopInfo.list[row].title
+        cell.mainLabel.text = shopInfo[row].title
         
         
-        let checkImage = shopInfo.list[row].checkStatus ? "checkmark.square.fill" : "checkmark.square"
+        let checkImage = shopInfo[row].checkStatus ? "checkmark.square.fill" : "checkmark.square"
         cell.checkButton.setImage(UIImage(systemName: checkImage), for: .normal)
         
         
@@ -127,7 +91,7 @@ class ShoppingTableViewController: UITableViewController {
         
         
         
-        let likeImage = shopInfo.list[row].likeStatus ? "star.fill" : "star"
+        let likeImage = shopInfo[row].likeStatus ? "star.fill" : "star"
         cell.likeButton.setImage(UIImage(systemName: likeImage), for: .normal)
         
         
@@ -148,12 +112,12 @@ class ShoppingTableViewController: UITableViewController {
         
         if let text = inputTextField.text {
             if !text.isEmpty {
-                shopInfo.list.append(ShoppingStatus(checkStatus: false, title: text, likeStatus: false))
+                shopInfo.append(ShoppingStatus(checkStatus: false, title: text, likeStatus: false))
                 tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "알림", message: "상품을 입력해주세요.", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "확인", style: .default)
-                
+            
                 alert.addAction(ok)
                 present(alert,animated: true)
             }
@@ -164,14 +128,14 @@ class ShoppingTableViewController: UITableViewController {
     
     @objc private func checkBtnTapped(_ sender: UIButton) {
         
-        shopInfo.list[sender.tag].checkStatus.toggle()
+        shopInfo[sender.tag].checkStatus.toggle()
         tableView.reloadData()
         
     }
     
     @objc private func likeBtnTapped(_ sender: UIButton) {
         
-        shopInfo.list[sender.tag].likeStatus.toggle()
+        shopInfo[sender.tag].likeStatus.toggle()
         tableView.reloadData()
         
     }
