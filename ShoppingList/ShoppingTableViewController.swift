@@ -30,12 +30,13 @@ class ShoppingTableViewController: UITableViewController {
         backgroundView.layer.cornerRadius = 10
         backgroundView.layer.borderColor = UIColor.clear.cgColor
         
-        
-        inputTextField.placeholder = "무엇을 구매하실 건가요?"
+        let placeholderText = "무엇을 구매하실 건가요?"
+        inputTextField.placeholder = placeholderText
         inputTextField.backgroundColor = .clear
         inputTextField.borderStyle = .none
         
-        addButton.setTitle("추가", for: .normal)
+        let btnTitle = "추가"
+        addButton.setTitle(btnTitle, for: .normal)
         addButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         addButton.setTitleColor(.black, for: .normal)
         addButton.setTitleColor(.blue, for: .highlighted)
@@ -45,8 +46,8 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let del = UIContextualAction(style: .normal, title: "삭제") { (_, _, complete: @escaping (Bool) -> Void) in
+        let title = "삭제"
+        let del = UIContextualAction(style: .normal, title: title) { (_, _, complete: @escaping (Bool) -> Void) in
             
             //리스트를 먼저 지우고, 테이블 뷰를 지워야함.
             self.shopInfo.remove(at: indexPath.row)
@@ -71,36 +72,16 @@ class ShoppingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingTableViewController", for: indexPath) as! ShoppingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingTableViewCell.identifier, for: indexPath) as! ShoppingTableViewCell
         
-        let row = indexPath.row
+        let row = shopInfo[indexPath.row]
         
-        cell.mainLabel.text = shopInfo[row].title
+        cell.configureDate(row: row)
         
-        
-        let checkImage = shopInfo[row].checkStatus ? "checkmark.square.fill" : "checkmark.square"
-        cell.checkButton.setImage(UIImage(systemName: checkImage), for: .normal)
-        
-        
-        
-        cell.checkButton.tag = row
-        
-        
-        
+        cell.checkButton.tag = indexPath.row
         cell.checkButton.addTarget(self, action: #selector(checkBtnTapped), for: .touchUpInside)
         
-        
-        
-        let likeImage = shopInfo[row].likeStatus ? "star.fill" : "star"
-        cell.likeButton.setImage(UIImage(systemName: likeImage), for: .normal)
-        
-        
-        
-        
-        cell.likeButton.tag = row
-        
-        cell.backgroundColor = #colorLiteral(red: 0.9568622708, green: 0.9568629861, blue: 0.9740719199, alpha: 1)
-        
+        cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(likeBtnTapped), for: .touchUpInside)
         
         
@@ -129,14 +110,16 @@ class ShoppingTableViewController: UITableViewController {
     @objc private func checkBtnTapped(_ sender: UIButton) {
         
         shopInfo[sender.tag].checkStatus.toggle()
-        tableView.reloadData()
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .fade)
         
     }
     
     @objc private func likeBtnTapped(_ sender: UIButton) {
         
         shopInfo[sender.tag].likeStatus.toggle()
-        tableView.reloadData()
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .fade)
         
     }
     
